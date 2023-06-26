@@ -14,9 +14,9 @@ void quick_sort(int *array, size_t size)
 /**
   * sort_alg - recursive sorting algorithm
   * @arr: array
-  * @left: i-index engakwesokunxele
-  * @right: i-index emgakwesokudla
-  * @size: usayizi wearray ogwele
+  * @left: leftmost index
+  * @right: rightmost index
+  * @size: full size of array
   */
 void sort_alg(int *arr, int left, int right, size_t size)
 {
@@ -31,11 +31,11 @@ void sort_alg(int *arr, int left, int right, size_t size)
 }
 
 /**
-  * split - ihlukanisa i-array
+  * split - split array
   * @arr: array
-  * @left: i-index engakwesokunxele
-  * @right: i-index engakwesokudla
-  * @size: usiyizi wearray ogcwele
+  * @left: leftmost index
+  * @right: rightmost index
+  * @size: full array size
   * Return: pivot index
   */
 int split(int *arr, int left, int right, size_t size)

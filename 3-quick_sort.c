@@ -1,71 +1,72 @@
 #include "sort.h"
+
 /**
-  * quick_sort - quicksort algorithm
-  * @array: array to be sorted
-  * @size: size of array
-  */
-void quick_sort(int *array, size_t size)
+ * swap - pasina zviviri int
+ * @a: int
+ * @b: int
+ * Return: pasina chachinja niswa int
+ */
+void swap(int *a, int *b)
 {
-	if (array == NULL || size <= 1)
-		return;
-	sort_alg(array, 0, size - 1, size);
+	int tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
-
 /**
-  * sort_alg - recursive sorting algorithm
-  * @arr: array
-  * @left: leftmost index
-  * @right: rightmost index
-  * @size: full size of array
-  */
-void sort_alg(int *arr, int left, int right, size_t size)
+ * partition - Part ye array &kushamdiswa pivot
+ * @array: Array
+ * @low: int
+ * @high: int
+ * @size: isayizi yezera re size_t
+ * Return: index ye int
+ */
+int partition(int *array, int low, int high, size_t size)
 {
-	int pivot;
+	int pivot = array[high];
+	int x = low - 1, y;
 
-	if (left < right)
+	for (y = low; y <= high; y++)
 	{
-		pivot = split(arr, left, right, size);
-		sort_alg(arr, left, pivot - 1, size);
-		sort_alg(arr, pivot + 1, right, size);
-	}
-}
-
-/**
-  * split - split array
-  * @arr: array
-  * @left: leftmost index
-  * @right: rightmost index
-  * @size: full array size
-  * Return: pivot index
-  */
-int split(int *arr, int left, int right, size_t size)
-{
-	int i, i2, pivot, tmp;
-
-	pivot = arr[right];
-	i = left;
-
-	for (i2 = left; i2 < right; i2++)
-	{
-		if (arr[i2] < pivot)
+		if (array[y] <= pivot)
 		{
-			if (i != i2)
+			x++;
+			if (x != y)
 			{
-				tmp = arr[i2];
-				arr[i2] = arr[i];
-				arr[i] = tmp;
-				print_array(arr, size);
+				swap(&array[x], &array[y]);
+				print_array(array, size);
 			}
-			i++;
 		}
 	}
-	if (arr[i] != arr[right])
-	{
-		tmp = arr[i];
-		arr[i] = arr[right];
-		arr[right] = tmp;
-		print_array(arr, size);
-	}
+	return (x);
+}
+/**
+ * lomuto_qsort - Sotin'i Recursively ye Array
+ * @array: Array to be sorted
+ * @low: okungezasi kwe-array
+ * @high: okungaphezulu kwe-array
+ * @size: usayizi ey-array
+ * Return: nothing
+ */
+void lomuto_qsort(int *array, int low, int high, size_t size)
+{
+	int i;
 
-	return (i);
+	if (low < high)
+	{
+		i = partition(array, low, high, size);
+		lomuto_qsort(array, low, i - 1, size);
+		lomuto_qsort(array, i + 1, high, size);
+	}
+}
+/**
+ * quick_sort - Quick_sort yema  Algorithmme using lomuto_part
+ * @array: Array_2_sort
+ * @size: Size ye_Array
+ * Return: Sorted Array_none
+ */
+void quick_sort(int *array, size_t size)
+{
+	lomuto_qsort(array, 0, size - 1, size);
 }
